@@ -1,27 +1,6 @@
 <?php
 
 /**
- * Implements hook_autoload_info().
- */
-function halloween_lights_autoload_info() {
-  return array(
-    'BlockHalloweenLights' => 'includes/block.halloween_lights.inc',
-  );
-}
-
-/**
- * Prepares variables for site alert blocks.
- */
-/*function halloween_lights_preprocess_block(&$variables) {
-  $block = $variables['block'];
-  if (get_class($block) == 'BlockHalloweenLights') {
-    if (isset($block->settings['halloweenlights'])) {
-      $variables['classes'][] = 'block-halloween-lights';
-    }
-  }
-}*/
-
-/**
  * Implements hook_preprocess_HOOK().
 ().
  */
@@ -33,20 +12,7 @@ function halloween_lights_preprocess_page(&$variables) {
   }
 }
 
-/**
- * Implements hook_block_info().
- */
-function halloween_lights_block_info() {
-  $blocks = array();
-  $default_info = t('Add Halloween Lights.');
-  $blocks['default'] = array(
-    // The name that will appear in the block list.
-    'info' => t('Halloween Lights Block'),
-    'description' => $default_info,
-    'class' => 'BlockHalloweenLights',
-  );
-  return $blocks;
-}
+
 
 
 
