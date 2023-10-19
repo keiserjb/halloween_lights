@@ -18,7 +18,7 @@ com/backdrop-contrib/halloween_lights/issues).
 ## Credits
 
 - Created for Backdrop CMS by [Justin Keiser](https://github.com/keiserjb).
-- Inspired by [Happy New Year](https://github.com/backdrop-contrib/happy_new_year and a css project on [CodePen]
+- Inspired by [Happy New Year](https://github.com/backdrop-contrib/happy_new_year) and a css project on [CodePen]
   (https://codepen.io/elchonock/pen/JjyRWaZ).
 
 ## License
