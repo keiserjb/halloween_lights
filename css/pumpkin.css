@@ -1,0 +1,105 @@
+body{
+  background-color: #333;
+}
+#halloween-lights {
+  margin-top: 0px;
+  margin-right: -10px;
+  margin-left: -10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 5px;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 5px;
+}
+
+
+.pumpkin{
+  position: relative;
+}
+
+
+.glow-on {
+  fill: #ff8000; /* Use a brighter orange color */
+  animation: flicker 1s ease-in infinite, glow 2s ease-in-out infinite;
+  transform-origin: center;
+}
+
+@keyframes glow {
+  0% {
+    fill: #ff8000; /* Initial fill color */
+  }
+  100% {
+    fill: #ff9900; /* Brighter glow fill color */
+  }
+}
+
+@keyframes flicker {
+  0% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.pumpkin__item{
+  width: 40px;
+  cursor: pointer;
+  fill: #f38b04;
+  transition: all ease 0.25s 0s;
+  stroke: #333;
+}
+
+.pumpkin:not(:last-child)::after {
+  content: '';
+  top: -18px;
+  left: 46%;
+  position: absolute;
+  width: 90px;
+  height: 28px;
+  border-bottom: 4px solid #222;
+  border-radius: 50%;
+  z-index: -1;
+}
+
+.pumpkin:nth-child(3n+4){
+  top: 10px;
+  .pumpkin__item{
+    width: 45px;
+    filter: drop-shadow( 3px 3px 2px rgba(3, 3, 3, 0.8));
+    &:hover{
+      width: 50px;
+      transform: rotate(-10deg);
+    }
+  }
+  &::after{
+    transform: rotate(5deg);
+  }
+
+}
+.pumpkin:nth-child(2n+3){
+
+  &::after{
+    transform: rotate(5deg);
+  }
+
+  .pumpkin__item{
+    width: 35px;
+    filter: drop-shadow( 3px 3px 2px rgba( 3, 3, 3, .8));
+    &:hover{
+      width: 50px;
+      transform: rotate(-10deg);
+    }
+  }
+}
+
+body.logged-in #halloween-lights {
+  top: 30px;
+}
+
+body.navbar-horizontal #halloween-lights {
+  top: 75px; /* Adjust this value to move it down 80px from the original position */
+}
