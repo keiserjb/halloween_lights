@@ -1,5 +1,5 @@
 name = Halloween Lights
-description = Adds a string of Jack-o'-lantern
+description = Adds a string of Jack-o'-lantern lights.
 backdrop = 1.x
 type = module
 configure = admin/config/media/halloween_lights
