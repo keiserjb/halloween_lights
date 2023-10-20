@@ -1,0 +1,10 @@
+# Custom module library for general purposes.
+pumpkin:
+  js:
+    js/pumpkin.js: {}
+  css:
+    component:
+      css/pumpkin.css: {}
+  dependencies:
+    - core/jquery
+    - core/drupal

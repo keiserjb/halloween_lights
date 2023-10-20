@@ -1,18 +1,8 @@
 (function ($) {
   'use strict';
 
-  Backdrop.behaviors.halloweenLights = {
+  Drupal.behaviors.halloweenLights = {
     attach: function (context, settings) {
-      function getRandomColor() {
-        const digits = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 'a', 'b', 'c', 'd', 'e', 'f'];
-        const color = [];
-        let colorStr;
-        for (let i = 0; i < 6; i++) {
-          color.push(digits[Math.floor(Math.random() * digits.length)]);
-        }
-        colorStr = color.join('');
-        return '#' + colorStr;
-      }
       function setPumpkins() {
         // Check if the wrapper with ID 'halloween-lights' already exists.
         let wrapper = $('#halloween-lights');
@@ -22,6 +12,10 @@
           wrapper = $('<div id="halloween-lights"></div>');
           // Append the wrapper to the body.
           $('body').append(wrapper);
+        }
+        // if garland not exists.
+        if ($('#halloween-lights').length === 0) {
+          $('body').append('<div id="halloween-lights"></div>');
         }
 
         for (let i = 1; i < 26; i++) {
@@ -57,4 +51,4 @@
       setPumpkins();
     }
   };
-})(jQuery);
+})(jQuery, Drupal);

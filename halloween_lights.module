@@ -1,18 +1,25 @@
 <?php
 
+use Drupal\Core\Routing\RouteMatchInterface;
+
 /**
- * Implements hook_preprocess_HOOK().
-().
+ * Implements hook_page_attachments().
  */
-function halloween_lights_preprocess_page(&$variables) {
-  if ((!path_is_admin(current_path()))) {
-    $path = backdrop_get_path('module', 'halloween_lights');
-    backdrop_add_css($path . '/css/pumpkin.css');
-    backdrop_add_js($path . '/js/pumpkin.js');
+function halloween_lights_page_attachments(array &$attachments) {
+  $route = \Drupal::routeMatch()->getRouteObject();
+  $is_admin = \Drupal::service('router.admin_context')->isAdminRoute($route);
+
+  if (!$is_admin) {
+    $attachments['#attached']['library'][] = 'halloween_lights/pumpkin';
   }
 }
 
-
+/**
+ * Implements hook_preprocess_HOOK() for page templates.
+ */
+/*function halloween_lights_preprocess_page(&$variables) {
+    $variables['#attached']['library'][] = 'halloween_lights/pumpkin';
+}*/
 
 
 
