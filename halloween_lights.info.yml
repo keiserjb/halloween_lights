@@ -1,5 +1,5 @@
 name: Halloween Lights
 type: module
-description: Adds a string of Jack-o'-lantern lights.
+description: Adds a string of Jack-o'-lantern lights to your Drupal website.
 package: Custom
 core_version_requirement: ^9 || ^10
