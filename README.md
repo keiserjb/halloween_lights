@@ -14,6 +14,12 @@ Just enable the module on and the Halloween Lights display on every non-admin pa
 
 [Justin Keiser](https://www.drupal.org/u/keiserjb)
 
+## Similar Projects
+
+Inspired by the [Happy New Year and Merry Christmas!](https://www.drupal.org/project/happy_new_year) module.
+
+Halloween Lights is also available for [Backdrop CMS](https://backdropcms.org/project/halloween_lights).
+
 ## License
 
 This project is GPL v2 software. See the LICENSE.txt file in this directory for complete text.
