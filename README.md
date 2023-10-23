@@ -8,7 +8,7 @@ Install this module using the official [Drupal instructions](https://www.drupal.
 
 ## Configuration
 
-Just enable the module on and the Halloween Lights display on every non-admin page.
+Just enable the module and the Halloween Lights display on every non-admin page.
 
 ## Current Maintainer
 
