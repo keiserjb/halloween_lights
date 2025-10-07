@@ -114,10 +114,12 @@
           }
         }
 
-        measure(); onScroll();
+        measure();
+        onScroll();
         $(window).off('scroll.hlightsNF').on('scroll.hlightsNF', onScroll);
         $(window).off('resize.hlightsNF').on('resize.hlightsNF', function () {
-          measure(); onScroll();
+          measure();
+          onScroll();
         });
       }
 
