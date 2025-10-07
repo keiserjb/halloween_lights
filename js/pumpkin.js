@@ -71,9 +71,9 @@
                 '</svg></div>'
               );
               $wrapper.append($p);
-              ids.push(setInterval(function ($n) {
-                return function () { $n.find('.glow').toggleClass('glow-on'); };
-              }($p), Math.random() * 3000 + 750));
+              ids.push(setInterval(() => {
+                $p.find('.glow').toggleClass('glow-on');
+              }, Math.random() * 3000 + 750));
             } else {
               $wrapper.append(
                 '<div class="pumpkin"><svg class="pumpkin__item pump_' + i + '" viewBox="0 0 64 64">' +
