@@ -1,20 +1,14 @@
-body{
-  background-color: #333;
-}
+/* Base wrapper: neutral; positioning is chosen by fixed/absolute CSS file */
 #halloween-lights {
-  margin-top: 0px;
-  margin-right: -10px;
-  margin-left: -10px;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  padding: 5px;
-  position: fixed;
-  left: 0;
-  right: 0;
-  top: 5px;
+  padding: 5px 0;
+  width: 100%;
+  margin: 0;
+  box-sizing: border-box;
+  z-index: 1031;
 }
-
 
 .pumpkin{
   position: relative;
@@ -94,12 +88,4 @@ body{
       transform: rotate(-10deg);
     }
   }
-}
-
-body.logged-in #halloween-lights {
-  top: 30px;
-}
-
-body.navbar-horizontal #halloween-lights {
-  top: 75px; /* Adjust this value to move it down 80px from the original position */
 }

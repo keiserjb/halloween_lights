@@ -1,19 +1,213 @@
 <?php
 
 /**
+ * Implements hook_menu().
+().
+ */
+function halloween_lights_menu() {
+  $items['admin/config/media/halloween_lights'] = [
+    'title' => 'Halloween Lights',
+    'description' => 'A module that adds a string of Jack-o\'-lantern lights to the top of your site.',
+    'page callback' => 'backdrop_get_form',
+    'page arguments' => ['halloween_lights_settings_form'],
+    'access arguments' => ['administer site configuration'],
+  ];
+
+  return $items;
+}
+
+/**
+ * Implements hook_config_info().
+ */
+function halloween_lights_config_info() {
+  $prefixes['halloween_lights.settings'] = array(
+    'label' => t('Halloween Lights settings'),
+    'group' => t('Configuration'),
+  );
+  return $prefixes;
+}
+
+/**
+ * Form settings.
+ */
+function halloween_lights_settings_form() {
+  $config = config('halloween_lights.settings');
+
+  // Build associative options: 1 => 1, 2 => 2, ...
+  $days_october  = array_combine(range(1, 31), range(1, 31));
+  $days_november = array_combine(range(1, 30), range(1, 30));
+
+  $form = [];
+  $form['#config'] = 'halloween_lights.settings';
+
+  $form['period'] = [
+    '#type' => 'fieldset',
+    '#title' => t('Working period'),
+  ];
+
+  $form['period']['halloween_lights_period'] = [
+    '#type' => 'checkbox',
+    '#title' => t('Enable working period'),
+    '#default_value' => (bool) $config->get('halloween_lights_period'),
+    '#description' => t('If the working period is not specified, the module will run all the time.'),
+  ];
+
+  $form['period']['period_dates'] = [
+    '#type' => 'fieldset',
+    '#title' => t('Select start date and end date'),
+    '#states' => [
+      'visible' => [
+        '#edit-halloween-lights-period' => ['checked' => TRUE],
+      ],
+    ],
+  ];
+
+  $form['period']['period_dates']['halloween_lights_start'] = [
+    '#type' => 'select',
+    '#title' => t('Start day (October)'),
+    '#options' => $days_october,
+    '#default_value' => (int) ($config->get('halloween_lights_start') ?: 1),
+  ];
+
+  $form['period']['period_dates']['halloween_lights_end'] = [
+    '#type' => 'select',
+    '#title' => t('End day (November)'),
+    '#options' => $days_november,
+    '#default_value' => (int) ($config->get('halloween_lights_end') ?: 1),
+  ];
+
+  $form['lights_settings'] = [
+    '#type' => 'fieldset',
+    '#title' => t('Lights settings'),
+  ];
+
+  $form['lights_settings']['halloween_lights_topfixed'] = [
+    '#type' => 'checkbox',
+    '#title' => t('Top-Fixed lights'),
+    '#default_value' => $config->get('halloween_lights_topfixed'),
+    '#description' => t('Make the lights fixed to the top of the page.'),
+  ];
+
+  $form['lights_settings']['halloween_lights_coretoolbar'] = [
+    '#type' => 'checkbox',
+    '#title' => t('Backdrop core toolbar is used (add lights after toolbar)'),
+    '#default_value' => $config->get('halloween_lights_coretoolbar'),
+  ];
+
+  $form['lights_settings']['halloween_lights_bootstrapfixed'] = [
+    '#type' => 'checkbox',
+    '#title' => t('Bootstrap navbar-fixed is used (add lights after navbar)'),
+    '#default_value' => $config->get('halloween_lights_bootstrapfixed'),
+  ];
+
+  $form['lights_settings']['halloween_lights_adminmenu'] = [
+    '#type' => 'checkbox',
+    '#title' => t('admin_menu is used (add lights after menu)'),
+    '#default_value' => $config->get('halloween_lights_adminmenu'),
+  ];
+
+  $form['lights_settings']['halloween_lights_custommargin'] = [
+    '#type' => 'checkbox',
+    '#title' => t('Use custom top margin'),
+    '#default_value' => $config->get('halloween_lights_custommargin'),
+  ];
+
+  $form['lights_settings']['halloween_lights_custommargintext'] = [
+    '#type' => 'textfield',
+    '#title' => t('Enter custom top margin'),
+    '#default_value' => $config->get('halloween_lights_custommargintext'),
+    '#maxlength' => 7,
+    '#size' => 7,
+    '#states' => [
+      'visible' => [
+        '#edit-halloween-lights-custommargin' => ['checked' => TRUE],
+      ],
+    ],
+  ];
+
+  return system_settings_form($form);
+}
+
+/**
+ * Helper: are we within the holiday window?
+ * Runs Oct <start> through Nov <end>.
+ */
+function _halloween_lights_isholidaytime() {
+  $config = config('halloween_lights.settings');
+
+  // Not restricted → always on.
+  if (!$config->get('halloween_lights_period')) {
+    return TRUE;
+  }
+
+  $start = (int) $config->get('halloween_lights_start'); // 1–31
+  $end   = (int) $config->get('halloween_lights_end');   // 1–30
+
+  $m = (int) date('m');
+  $d = (int) date('d');
+
+  // October: on from start day to Oct 31.
+  if ($m === 10 && $d >= $start) {
+    return TRUE;
+  }
+  // November: on from Nov 1 to end day.
+  if ($m === 11 && $d <= $end) {
+    return TRUE;
+  }
+
+  return FALSE;
+}
+
+/**
+ * Validation.
+ */
+function halloween_lights_settings_form_validate($form, &$form_state) {
+  // Values are now literal days (not zero-indexed).
+  $start = (int) $form_state['values']['halloween_lights_start'];
+  $end   = (int) $form_state['values']['halloween_lights_end'];
+
+  if ($start < 1 || $start > 31) {
+    form_set_error('halloween_lights_start', t('Start day must be between 1 and 31.'));
+  }
+  if ($end < 1 || $end > 30) {
+    form_set_error('halloween_lights_end', t('End day must be between 1 and 30.'));
+  }
+}
+
+/**
  * Implements hook_preprocess_HOOK().
 ().
  */
 function halloween_lights_preprocess_page(&$variables) {
-  if ((!path_is_admin(current_path()))) {
+  if ((!path_is_admin(current_path())) && _halloween_lights_isholidaytime()) {
+    $config = config('halloween_lights.settings');
     $path = backdrop_get_path('module', 'halloween_lights');
+
     backdrop_add_css($path . '/css/pumpkin.css');
+
+    if ($config->get('halloween_lights_topfixed')) {
+      backdrop_add_css($path . '/css/pumpkin-fixed.css');
+         // Add a body/page class so CSS can reserve space on first paint.
+      if (!isset($variables['attributes']['class'])) {
+        $variables['attributes']['class'] = array();
+      }
+      $variables['attributes']['class'][] = 'has-hl-fixed';
+    }
+    else {
+      backdrop_add_css($path . '/css/pumpkin-absolute.css');
+    }
+
     backdrop_add_js($path . '/js/pumpkin.js');
+
+    backdrop_add_js([
+      'halloween_lights' => [
+        'lightsTopFixed' => $config->get('halloween_lights_topfixed'),
+        'lightsCoreToolbar' => $config->get('halloween_lights_coretoolbar'),
+        'lightsBootstrapFixed' => $config->get('halloween_lights_bootstrapfixed'),
+        'lightsAdminMenu' => $config->get('halloween_lights_adminmenu'),
+        'lightsCustomMargin' => $config->get('halloween_lights_custommargin'),
+        'lightsCustomMarginText' => $config->get('halloween_lights_custommargintext'),
+      ],
+    ], ['type' => 'setting']);
   }
 }
-
-
-
-
-
-

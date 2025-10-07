@@ -1,0 +1,23 @@
+/* Lights are fixed to the viewport */
+#halloween-lights {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  width: 100%;
+  min-height: 56px;          /* rough height to avoid first-paint flash */
+  background-color: inherit; /* visually match header immediately */
+}
+
+/* Reserve space immediately with padding so the header's bg fills it.
+   JS will replace 56px with the exact measured height. */
+header.l-header,
+header {
+  padding-top: 56px;
+}
+
+#halloween-lights-spacer {
+  width: 100%;
+}
+
+/*.l-header-inner {
+  padding-top: 60px !important;
+}*/
