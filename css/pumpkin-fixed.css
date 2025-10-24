@@ -3,21 +3,14 @@
   position: fixed;
   top: 0; left: 0; right: 0;
   width: 100%;
-  min-height: 56px;          /* rough height to avoid first-paint flash */
+  /* Keep a small min-height to reduce layout shift on first paint. */
+  min-height: 40px;
   background-color: inherit; /* visually match header immediately */
+  z-index: 500; /* above content, below admin bars typically */
 }
 
-/* Reserve space immediately with padding so the header's bg fills it.
-   JS will replace 56px with the exact measured height. */
-header.l-header,
-header {
-  padding-top: 56px;
-}
+/* IMPORTANT: Do NOT add default padding to the header here.
+   JS will measure the lights and set exact padding so we don't double-count. */
 
-#halloween-lights-spacer {
-  width: 100%;
-}
-
-/*.l-header-inner {
-  padding-top: 60px !important;
-}*/
+/* Optional spacer (not used currently, but kept for compatibility) */
+#halloween-lights-spacer { width: 100%; }
