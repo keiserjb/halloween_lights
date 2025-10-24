@@ -44,7 +44,7 @@
               );
               $wrapper.append($p);
               const id = setInterval(() => {
-                $p.find('.glow').toggleClass('glow-on');     
+                $p.find('.glow').toggleClass('glow-on');
               }, Math.random() * 3000 + 750);
               intervalIds.push(id);
             } else {
