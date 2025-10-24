@@ -43,8 +43,7 @@
                 '</svg></div>'
               );
               $wrapper.append($p);
-              $wrapper.append($p);
-              const id = setInterval(function () {
+              const id = setInterval(() => {
                 $p.find('.glow').toggleClass('glow-on');     
               }, Math.random() * 3000 + 750);
               intervalIds.push(id);
