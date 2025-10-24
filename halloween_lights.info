@@ -8,3 +8,8 @@ configure = admin/config/media/halloween_lights
 project = halloween_lights
 version = 1.x-1.0.1
 timestamp = 1697743779
+
+; Added by Backdrop CMS packaging script on 2025-10-07
+project = halloween_lights
+version = 1.x-1.0.2
+timestamp = 1759861010
