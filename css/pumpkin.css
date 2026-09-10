@@ -89,3 +89,21 @@
     }
   }
 }
+
+/* Hide whole pumpkins, including their wires, on narrower screens. */
+@media screen and (max-width: 1400px) {
+  #halloween-lights .pumpkin:nth-child(even) {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 750px) {
+  #halloween-lights .pumpkin:nth-child(4n + 1) {
+    display: none;
+  }
+
+  /* The final two pumpkins are hidden, so end the wire at the visible one. */
+  #halloween-lights .pumpkin:nth-last-child(3)::after {
+    content: none;
+  }
+}

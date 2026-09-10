@@ -1,7 +1,6 @@
 /* Non-fixed mode (scrolls away) */
 #halloween-lights {
   position: relative;
-  width: 100%;
   overflow: hidden;
   transition: height .25s ease;
   background-color: inherit;

@@ -3,13 +3,3 @@ description = Adds a string of Jack-o'-lantern lights to the top of your site.
 backdrop = 1.x
 type = module
 configure = admin/config/media/halloween_lights
-
-; Added by Backdrop CMS packaging script on 2023-10-19
-project = halloween_lights
-version = 1.x-1.0.1
-timestamp = 1697743779
-
-; Added by Backdrop CMS packaging script on 2025-10-07
-project = halloween_lights
-version = 1.x-1.0.2
-timestamp = 1759861010

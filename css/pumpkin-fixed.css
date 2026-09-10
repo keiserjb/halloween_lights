@@ -2,7 +2,6 @@
 #halloween-lights {
   position: fixed;
   top: 0; left: 0; right: 0;
-  width: 100%;
   /* Keep a small min-height to reduce layout shift on first paint. */
   min-height: 40px;
   background-color: inherit; /* visually match header immediately */
@@ -11,6 +10,3 @@
 
 /* IMPORTANT: Do NOT add default padding to the header here.
    JS will measure the lights and set exact padding so we don't double-count. */
-
-/* Optional spacer (not used currently, but kept for compatibility) */
-#halloween-lights-spacer { width: 100%; }
